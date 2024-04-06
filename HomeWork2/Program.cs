@@ -4,7 +4,7 @@
 Строка содержит буквы латинского алфавита, знаки препинания и цифры.
 Реализовать меню выбора действий:
 + Найти слова, содержащие максимальное количество цифр.
-- Найти самое длинное слово и определить, сколько раз оно встретилось в тексте.
++ Найти самое длинное слово и определить, сколько раз оно встретилось в тексте.
 - Заменить цифры от 0 до 9 на слова «ноль», «один», ..., «девять».
 - Вывести на экран сначала вопросительные, а затем восклицательные предложения.
 - Вывести на экран только предложения, не содержащие запятых.
@@ -14,9 +14,9 @@
 
 
 Console.WriteLine("Hello, World!");
-List<string> words = ReadFileHelpers.ReadAllWordsInFile();
+String textFromFile = ReadFileHelpers.ReadAllWordsInFile();
 Console.WriteLine();
-ReadFileHelpers.GetWordsWithMaxDigits(words);
+ReadFileHelpers.GetWordsWithMaxDigits(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetLongestWordAndItsNumOccurrences(words);
+ReadFileHelpers.GetLongestWordAndItsNumOccurrences(textFromFile);

@@ -2,40 +2,31 @@
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Security.Cryptography;
+using static System.Net.Mime.MediaTypeNames;
 
 internal static class ReadFileHelpers
 {
-    public static List<string> ReadAllWordsInFile()
+    public static string ReadAllWordsInFile()
     {
         string textFile = "C:\\Users\\magus_m13d1h2\\OneDrive\\Documents\\test.txt";
         Console.WriteLine(File.Exists(textFile) ? "File exists" : "File does not exists");
-        
-        List<string> wordsWithNumbers = new List<string>();
+        var textFromFile = string.Empty;
         if (File.Exists(textFile))
         {
             using (StreamReader sr = new StreamReader(textFile))
             {
-                var text = sr.ReadToEnd();
-
-                string pattern = @"\b(\w+)\b";
-                //wordsWithNumbers.Add(match.Groups[1].Value);
-                //string patternIncludeNumbers = @"\b([a-zA-Z]*\d+[a-zA-Z]*)\b";
-                wordsWithNumbers
-                    .AddRange(Regex.Matches(text, pattern)
-                    .Where(match => match.Success)
-                    .Select(match => match.Value));
+                textFromFile = sr.ReadToEnd();
             }
         }
-        Console.WriteLine(string.Join(", ", wordsWithNumbers));
-        return wordsWithNumbers;
-
+        return textFromFile;
     }
 
-    
-    public static void GetWordsWithMaxDigits(List<string> words)
+
+    public static void GetWordsWithMaxDigits(string textFromFile)
     {
-        List<string> allWordsWithMaxDigits = new List<string>();
-        int maxDigitsInWords = words.Max(word => CountDigitsInWord(word));
+        List<string> words = SpiltTextIntoWords(textFromFile);
+        var allWordsWithMaxDigits = new List<string>();
+        var maxDigitsInWords = words.Max(word => CountDigitsInWord(word));
 
         foreach (string word in words) 
         { 
@@ -47,13 +38,9 @@ internal static class ReadFileHelpers
         Console.WriteLine($"Слова содержащие максимальное количество цифр: {String.Join(", ", allWordsWithMaxDigits)}.");
     }
 
-    private static int CountDigitsInWord(string word)
+    public static void GetLongestWordAndItsNumOccurrences(string textFromFile)
     {
-        return word.Where(c => char.IsDigit(c)).Count();
-    }
-
-    public static void GetLongestWordAndItsNumOccurrences(List<string> words)
-    {
+        List<string> words = SpiltTextIntoWords(textFromFile);
         int lenghtOfLongestWord = words.Max(word => word.Length);
 
         foreach (string word in words)
@@ -65,8 +52,26 @@ internal static class ReadFileHelpers
         }
     }
 
+    private static int CountDigitsInWord(string word)
+    {
+        return word.Where(c => char.IsDigit(c)).Count();
+    }
+    
     private static string GetEndsOfWord(int lenghtWord)
     {
         return lenghtWord % 10 > 0 && lenghtWord % 10 < 5 ? "ы" : string.Empty;
+    }
+    
+    private static List<string> SpiltTextIntoWords(string text)
+    {
+        string pattern = @"\b(\w+)\b";
+        
+        List<string> words = Regex
+            .Matches(text, pattern)
+            .Where(match => match.Success)
+            .Select(match => match.Value)
+            .ToList();
+      
+        return words;
     }
 }
