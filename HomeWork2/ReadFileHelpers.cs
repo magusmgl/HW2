@@ -21,19 +21,18 @@ internal static class ReadFileHelpers
         return textFromFile;
     }
 
-
     public static void GetWordsWithMaxDigits(string textFromFile)
     {
         List<string> words = SpiltTextIntoWords(textFromFile);
         var allWordsWithMaxDigits = new List<string>();
         var maxDigitsInWords = words.Max(word => CountDigitsInWord(word));
 
-        foreach (string word in words) 
-        { 
-              if (CountDigitsInWord(word) == maxDigitsInWords && !allWordsWithMaxDigits.Contains(word)) 
-              {
+        foreach (string word in words)
+        {
+            if (CountDigitsInWord(word) == maxDigitsInWords && !allWordsWithMaxDigits.Contains(word))
+            {
                 allWordsWithMaxDigits.Add(word);
-              }        
+            }
         }
         Console.WriteLine($"Слова содержащие максимальное количество цифр: {String.Join(", ", allWordsWithMaxDigits)}.");
     }
@@ -56,22 +55,22 @@ internal static class ReadFileHelpers
     {
         return word.Where(c => char.IsDigit(c)).Count();
     }
-    
+
     private static string GetEndsOfWord(int lenghtWord)
     {
         return lenghtWord % 10 > 0 && lenghtWord % 10 < 5 ? "ы" : string.Empty;
     }
-    
+
     private static List<string> SpiltTextIntoWords(string text)
     {
         string pattern = @"\b(\w+)\b";
-        
+
         List<string> words = Regex
             .Matches(text, pattern)
             .Where(match => match.Success)
             .Select(match => match.Value)
             .ToList();
-      
+
         return words;
     }
 }
