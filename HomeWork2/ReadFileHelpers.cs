@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Security.Cryptography;
 using static System.Net.Mime.MediaTypeNames;
+using System.Text;
 
 internal static class ReadFileHelpers
 {
@@ -72,5 +73,37 @@ internal static class ReadFileHelpers
             .ToList();
 
         return words;
+    }
+
+    private static string ReplaceNumbersWithNumeralsInWord(string word)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (var ch in word)
+        {
+            if (!char.IsDigit(ch))
+            {
+                sb.Append(GetNumeral(ch));
+            }
+            sb.Append(ch);
+        }
+
+        return sb.ToString();
+    }
+
+    private static string GetNumeral(char ch)
+    {
+        return int.Parse(ch.ToString()) switch
+        {
+            0 => "ноль",
+            1 => "один",
+            2 => "два",
+            3 => "три",
+            4 => "четыре",
+            5 => "пять",
+            6 => "шесть",
+            7 => "семь",
+            8 => "восемь",
+            9 => "девять",
+        };
     }
 }
