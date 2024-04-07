@@ -108,6 +108,18 @@ internal static class ReadFileHelpers
             }
         }
     }
+
+    public static void GetSentecesWithoutWashedDown(string textFromFile)
+    {
+        var senteces = GetSentencesFromText(textFromFile);
+        foreach (string sentence in senteces)
+        {
+            if (!sentence.Contains(','))
+            {
+                Console.WriteLine(sentence);
+            }
+        }
+    }
     private static int CountDigitsInWord(string word)
     {
         return word.Where(c => char.IsDigit(c)).Count();

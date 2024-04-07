@@ -23,9 +23,13 @@ ReadFileHelpers.GetLongestWordAndItsNumOccurrences(textFromFile);
 
 Console.WriteLine();
 ReadFileHelpers.InsertNumeralsInText(textFromFile);
-*/
+
 Console.WriteLine();
 ReadFileHelpers.GetSentetencesWithExclamationPoint(textFromFile);
 
 Console.WriteLine();
 ReadFileHelpers.GetSentetencesWithQuestionMark(textFromFile);
+*/
+
+Console.WriteLine();
+ReadFileHelpers.GetSentecesWithoutWashedDown(textFromFile);
