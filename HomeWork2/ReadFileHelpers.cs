@@ -67,6 +67,47 @@ internal static class ReadFileHelpers
         }
     }
 
+    private static List<string> GetSentencesFromText(string textFromFile)
+    {
+        char[] signs = ['.', '?', '!'];
+        List<String> sentences = new List<string>();
+        int start = 0;
+        int position;
+        do
+        {
+            position = textFromFile.IndexOfAny(signs, start);
+            if (position >= 0)
+            {
+                sentences.Add(textFromFile.Substring(start, position - start + 1).Trim());
+                start = position + 1;
+            }
+        } while (position > 0);
+        return sentences;
+
+
+    }
+    public static void GetSentetencesWithExclamationPoint(string textFromFile)
+    {
+        var senteces = GetSentencesFromText(textFromFile);
+        foreach (string sentence in senteces)
+        {
+            if (sentence.EndsWith('!'))
+            {
+                Console.WriteLine(sentence);
+            }
+        }
+    }
+    public static void GetSentetencesWithQuestionMark(string textFromFile)
+    {
+        var senteces = GetSentencesFromText(textFromFile);
+        foreach (string sentence in senteces)
+        {
+            if (sentence.EndsWith('?'))
+            {
+                Console.WriteLine(sentence);
+            }
+        }
+    }
     private static int CountDigitsInWord(string word)
     {
         return word.Where(c => char.IsDigit(c)).Count();
