@@ -12,11 +12,14 @@
 Приложение не должно падать ни при каких условиях
 */
 
-
-Console.WriteLine("Hello, World!");
 String textFromFile = ReadFileHelpers.ReadAllWordsInFile();
+Console.WriteLine(textFromFile);
+
 Console.WriteLine();
 ReadFileHelpers.GetWordsWithMaxDigits(textFromFile);
 
 Console.WriteLine();
 ReadFileHelpers.GetLongestWordAndItsNumOccurrences(textFromFile);
+
+Console.WriteLine();
+ReadFileHelpers.InsertNumeralsInText(textFromFile);

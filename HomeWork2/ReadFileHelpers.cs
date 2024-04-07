@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text;
+using System.Runtime.ExceptionServices;
+using System.Xml.Linq;
 
 internal static class ReadFileHelpers
 {
@@ -22,6 +24,19 @@ internal static class ReadFileHelpers
         return textFromFile;
     }
 
+    public static void InsertNumeralsInText(string textFromFile)
+    {
+        StringBuilder sb = new StringBuilder();
+        string[] chunks = textFromFile.Split(" ", StringSplitOptions.None);
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            if (CountDigitsInWord(chunks[i]) > 0)
+            {
+                chunks[i] = ReplaceNumbersWithNumeralsInWord(chunks[i]);
+            }
+        }
+        Console.WriteLine($"Текст после замены цифр на числитетельные:\n{string.Join(" ", chunks)}");
+    }
     public static void GetWordsWithMaxDigits(string textFromFile)
     {
         List<string> words = SpiltTextIntoWords(textFromFile);
@@ -80,30 +95,24 @@ internal static class ReadFileHelpers
         StringBuilder sb = new StringBuilder();
         foreach (var ch in word)
         {
-            if (!char.IsDigit(ch))
-            {
-                sb.Append(GetNumeral(ch));
-            }
-            sb.Append(ch);
+            var charToAdd = !char.IsDigit(ch) ? ch.ToString() : GetNumeral(ch);
+            sb.Append(charToAdd);
         }
 
         return sb.ToString();
     }
 
-    private static string GetNumeral(char ch)
+    private static string GetNumeral(char ch) => int.Parse(ch.ToString()) switch
     {
-        return int.Parse(ch.ToString()) switch
-        {
-            0 => "ноль",
-            1 => "один",
-            2 => "два",
-            3 => "три",
-            4 => "четыре",
-            5 => "пять",
-            6 => "шесть",
-            7 => "семь",
-            8 => "восемь",
-            9 => "девять",
-        };
-    }
+        0 => "ноль",
+        1 => "один",
+        2 => "два",
+        3 => "три",
+        4 => "четыре",
+        5 => "пять",
+        6 => "шесть",
+        7 => "семь",
+        8 => "восемь",
+        9 => "девять"
+    };
 }
