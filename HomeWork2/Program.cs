@@ -14,26 +14,30 @@
 
 using HomeWork2;
 
-String textFromFile = ReadFileHelpers.ReadAllWordsInFile();
-Console.WriteLine(textFromFile);
+class Program
+{
+    static void Main(string[] args)
+    {
+        Init();
+    }
 
-Console.WriteLine();
-TextHandler.GetWordsWithMaxDigits(textFromFile);
+    private static void Init()
+    {
+        ConsoleInterface.OutputOfProgramTitle();
+        Console.Write("Для начала введите путь к файлу с текстом: ");
+        var pathToFile = ConsoleInterface.GetPathToTheFile();
 
-Console.WriteLine();
-TextHandler.GetLongestWordAndItsNumOccurrences(textFromFile);
+        while (true)
+        {
+            ConsoleInterface.OperationsMenu(pathToFile);
+            string numberOfOperation = Console.ReadLine();
 
-Console.WriteLine();
-TextHandler.InsertNumeralsInText(textFromFile);
+            if (numberOfOperation.ToLower() == "q") break;
 
-Console.WriteLine();
-TextHandler.GetSentencesWithExclamationPoint(textFromFile);
+            ConsoleInterface.MakeOperationsOnText(numberOfOperation, pathToFile);
 
-Console.WriteLine();
-TextHandler.GetSentencesWithQuestionMark(textFromFile);
+        }
 
-Console.WriteLine();
-TextHandler.GetSentencesWithoutWashedDown(textFromFile);
+    }
+}
 
-Console.WriteLine();
-TextHandler.GetWordsStartsAnsEndWithTheSameLetter(textFromFile);
