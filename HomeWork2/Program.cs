@@ -12,24 +12,28 @@
 Приложение не должно падать ни при каких условиях
 */
 
+using HomeWork2;
+
 String textFromFile = ReadFileHelpers.ReadAllWordsInFile();
 Console.WriteLine(textFromFile);
-/*
-Console.WriteLine();
-ReadFileHelpers.GetWordsWithMaxDigits(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetLongestWordAndItsNumOccurrences(textFromFile);
+TextHandler.GetWordsWithMaxDigits(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.InsertNumeralsInText(textFromFile);
+TextHandler.GetLongestWordAndItsNumOccurrences(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentetencesWithExclamationPoint(textFromFile);
+TextHandler.InsertNumeralsInText(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentetencesWithQuestionMark(textFromFile);
-*/
+TextHandler.GetSentencesWithExclamationPoint(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentecesWithoutWashedDown(textFromFile);
+TextHandler.GetSentencesWithQuestionMark(textFromFile);
+
+Console.WriteLine();
+TextHandler.GetSentencesWithoutWashedDown(textFromFile);
+
+Console.WriteLine();
+TextHandler.GetWordsStartsAnsEndWithTheSameLetter(textFromFile);
