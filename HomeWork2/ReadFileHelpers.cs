@@ -11,22 +11,22 @@ internal static class ReadFileHelpers
 {
     public static string ReadAllWordsInFile()
     {
-        string textFile = "C:\\Users\\magus_m13d1h2\\OneDrive\\Documents\\test.txt";
+        // string textFile = "C:\\Users\\magus_m13d1h2\\OneDrive\\Documents\\test.txt";
+        var textFile = "C:\\Users\\m.glazunov\\Documents\\test.txt";
+
         Console.WriteLine(File.Exists(textFile) ? "File exists" : "File does not exists");
         var textFromFile = string.Empty;
         if (File.Exists(textFile))
         {
-            using (StreamReader sr = new StreamReader(textFile))
-            {
-                textFromFile = sr.ReadToEnd();
-            }
+            using var sr = new StreamReader(textFile);
+            textFromFile = sr.ReadToEnd();
         }
+
         return textFromFile;
     }
 
     public static void InsertNumeralsInText(string textFromFile)
     {
-        StringBuilder sb = new StringBuilder();
         string[] chunks = textFromFile.Split(" ", StringSplitOptions.None);
         for (int i = 0; i < chunks.Length; i++)
         {
@@ -35,8 +35,10 @@ internal static class ReadFileHelpers
                 chunks[i] = ReplaceNumbersWithNumeralsInWord(chunks[i]);
             }
         }
+
         Console.WriteLine($"Текст после замены цифр на числитетельные:\n{string.Join(" ", chunks)}");
     }
+
     public static void GetWordsWithMaxDigits(string textFromFile)
     {
         List<string> words = SpiltTextIntoWords(textFromFile);
@@ -50,28 +52,71 @@ internal static class ReadFileHelpers
                 allWordsWithMaxDigits.Add(word);
             }
         }
-        Console.WriteLine($"Слова содержащие максимальное количество цифр: {String.Join(", ", allWordsWithMaxDigits)}.");
+
+        Console.WriteLine(
+            $"Слова содержащие максимальное количество цифр: {string.Join(", ", allWordsWithMaxDigits)}.");
     }
 
     public static void GetLongestWordAndItsNumOccurrences(string textFromFile)
     {
         List<string> words = SpiltTextIntoWords(textFromFile);
-        int lenghtOfLongestWord = words.Max(word => word.Length);
+        var lengthOfLongestWord = words.Max(word => word.Length);
 
         foreach (string word in words)
         {
-            if (word.Length == lenghtOfLongestWord)
+            if (word.Length == lengthOfLongestWord)
             {
-                Console.WriteLine($"Самое длинное слово - {word}, оно содержит  {word.Length} букв{GetEndsOfWord(word.Length)}.");
+                Console.WriteLine(
+                    $"Самое длинное слово - {word}, оно содержит {word.Length} букв{GetEndsOfWord(word.Length)}.");
             }
+        }
+    }
+
+    public static void GetWordsStartsAnsEndWithTheSameLetter(string textFromFile)
+    {
+        var words = SpiltTextIntoWords(textFromFile);
+        Console.WriteLine("Cлова, начинающиеся и заканчивающиеся на одну и ту же букву: ");
+        foreach (var word in words.Where(x => x.Length > 1 && x[0] == x[^1]).Distinct())
+        {
+            Console.Write($"{word.ToLower()}, ");
+        }
+    }
+
+    public static void GetSentencesWithExclamationPoint(string textFromFile)
+    {
+        Console.WriteLine("Восклицательные предложения в тексте: ");
+        var sentences = GetSentencesFromText(textFromFile);
+        foreach (var sentence in sentences.Where(sentence => sentence.EndsWith('!')))
+        {
+            Console.WriteLine(sentence);
+        }
+    }
+
+    public static void GetSentencesWithQuestionMark(string textFromFile)
+    {
+        Console.WriteLine("Вопросительные предложения в тексте: ");
+        var sentences = GetSentencesFromText(textFromFile);
+        foreach (var sentence in sentences.Where(sentence => sentence.EndsWith('?')))
+        {
+            Console.WriteLine(sentence);
+        }
+    }
+
+    public static void GetSentencesWithoutWashedDown(string textFromFile)
+    {
+        Console.WriteLine("Все предложения, не содержащие запятых: ");
+        var sentences = GetSentencesFromText(textFromFile);
+        foreach (var sentence in sentences.Where(sentence => !sentence.Contains(',')))
+        {
+            Console.WriteLine(sentence);
         }
     }
 
     private static List<string> GetSentencesFromText(string textFromFile)
     {
         char[] signs = ['.', '?', '!'];
-        List<String> sentences = new List<string>();
-        int start = 0;
+        var sentences = new List<string>();
+        var start = 0;
         int position;
         do
         {
@@ -82,57 +127,22 @@ internal static class ReadFileHelpers
                 start = position + 1;
             }
         } while (position > 0);
+
         return sentences;
-
-
-    }
-    public static void GetSentetencesWithExclamationPoint(string textFromFile)
-    {
-        var senteces = GetSentencesFromText(textFromFile);
-        foreach (string sentence in senteces)
-        {
-            if (sentence.EndsWith('!'))
-            {
-                Console.WriteLine(sentence);
-            }
-        }
-    }
-    public static void GetSentetencesWithQuestionMark(string textFromFile)
-    {
-        var senteces = GetSentencesFromText(textFromFile);
-        foreach (string sentence in senteces)
-        {
-            if (sentence.EndsWith('?'))
-            {
-                Console.WriteLine(sentence);
-            }
-        }
-    }
-
-    public static void GetSentecesWithoutWashedDown(string textFromFile)
-    {
-        var senteces = GetSentencesFromText(textFromFile);
-        foreach (string sentence in senteces)
-        {
-            if (!sentence.Contains(','))
-            {
-                Console.WriteLine(sentence);
-            }
-        }
     }
     private static int CountDigitsInWord(string word)
     {
         return word.Where(c => char.IsDigit(c)).Count();
     }
 
-    private static string GetEndsOfWord(int lenghtWord)
+    private static string GetEndsOfWord(int lengthWord)
     {
-        return lenghtWord % 10 > 0 && lenghtWord % 10 < 5 ? "ы" : string.Empty;
+        return lengthWord % 10 > 0 && lengthWord % 10 < 5 ? "ы" : string.Empty;
     }
 
     private static List<string> SpiltTextIntoWords(string text)
     {
-        string pattern = @"\b(\w+)\b";
+        var pattern = @"\b(\w+)\b";
 
         List<string> words = Regex
             .Matches(text, pattern)
@@ -145,10 +155,9 @@ internal static class ReadFileHelpers
 
     private static string ReplaceNumbersWithNumeralsInWord(string word)
     {
-        StringBuilder sb = new StringBuilder();
-        foreach (var ch in word)
+        var sb = new StringBuilder();
+        foreach (var charToAdd in word.Select(ch => !char.IsDigit(ch) ? ch.ToString() : GetNumeral(ch)))
         {
-            var charToAdd = !char.IsDigit(ch) ? ch.ToString() : GetNumeral(ch);
             sb.Append(charToAdd);
         }
 

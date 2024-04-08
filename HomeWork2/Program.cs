@@ -14,7 +14,7 @@
 
 String textFromFile = ReadFileHelpers.ReadAllWordsInFile();
 Console.WriteLine(textFromFile);
-/*
+
 Console.WriteLine();
 ReadFileHelpers.GetWordsWithMaxDigits(textFromFile);
 
@@ -25,11 +25,13 @@ Console.WriteLine();
 ReadFileHelpers.InsertNumeralsInText(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentetencesWithExclamationPoint(textFromFile);
+ReadFileHelpers.GetSentencesWithExclamationPoint(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentetencesWithQuestionMark(textFromFile);
-*/
+ReadFileHelpers.GetSentencesWithQuestionMark(textFromFile);
 
 Console.WriteLine();
-ReadFileHelpers.GetSentecesWithoutWashedDown(textFromFile);
+ReadFileHelpers.GetSentencesWithoutWashedDown(textFromFile);
+
+Console.WriteLine();
+ReadFileHelpers.GetWordsStartsAnsEndWithTheSameLetter(textFromFile);
