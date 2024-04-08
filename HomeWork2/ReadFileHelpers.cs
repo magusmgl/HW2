@@ -4,10 +4,8 @@ internal static class ReadFileHelpers
 {
     public static string ReadTextInFile(string path)
     {
-         //string textFile = "C:\\Users\\magus_m13d1h2\\OneDrive\\Documents\\test.txt";
-        //var textFile = "C:\\Users\\m.glazunov\\Documents\\test.txt";
         using var sr = new StreamReader(path);
-        
+       
         return sr.ReadToEnd();
     }
 

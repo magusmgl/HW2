@@ -29,7 +29,7 @@ namespace HomeWork2
             return path;
         }
 
-        internal static void OperationsMenu(string pathToFile)
+        public static void OperationsMenu()
         {
             Console.Clear();
             OutputOfProgramTitle();
@@ -45,28 +45,40 @@ namespace HomeWork2
             Console.Write("\nВведите номер операции, который вы хотите сделать, или выведите 'q' для выхода из программы: ");
         }
 
-        internal static void MakeOperationsOnText(string numberOfOperation, string pathToFile)
+        public static void MakeOperationsOnText(string numberOfOperation, string textFromFile)
         {
             switch (numberOfOperation)
             {
                 case "1":
-                    TextHandler.GetWordsWithMaxDigits(pathToFile);
+                    TextHandler.GetWordsWithMaxDigits(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
                 case "2":
-                    TextHandler.GetLongestWordAndItsNumOccurrences(pathToFile);
+                    TextHandler.GetLongestWordAndItsNumOccurrences(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
                 case "3":
-                    TextHandler.InsertNumeralsInText(pathToFile);
+                    TextHandler.InsertNumeralsInText(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
                 case "4":
-                    TextHandler.GetSentencesWithExclamationPoint(pathToFile);
-                    TextHandler.GetSentencesWithQuestionMark(pathToFile);
+                    TextHandler.GetSentencesWithExclamationPoint(textFromFile);
+                    TextHandler.GetSentencesWithQuestionMark(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
                 case "5":
-                    TextHandler.GetSentencesWithoutWashedDown(pathToFile);
+                    TextHandler.GetSentencesWithoutWashedDown(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
                 case "6":
-                    TextHandler.GetWordsStartsAnsEndWithTheSameLetter(pathToFile);
+                    TextHandler.GetWordsStartsAnsEndWithTheSameLetter(textFromFile);
+                    Console.WriteLine("\nНажмите любую клавишу чтобы продолжить");
+                    Console.ReadKey(true);
                     break;
             }
         }

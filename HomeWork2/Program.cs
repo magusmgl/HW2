@@ -13,6 +13,7 @@
 */
 
 using HomeWork2;
+using System.IO;
 
 class Program
 {
@@ -26,15 +27,17 @@ class Program
         ConsoleInterface.OutputOfProgramTitle();
         Console.Write("Для начала введите путь к файлу с текстом: ");
         var pathToFile = ConsoleInterface.GetPathToTheFile();
+        var textFromFile = ReadFileHelpers.ReadTextInFile(pathToFile);
+
 
         while (true)
         {
-            ConsoleInterface.OperationsMenu(pathToFile);
+            ConsoleInterface.OperationsMenu();
             string numberOfOperation = Console.ReadLine();
 
             if (numberOfOperation.ToLower() == "q") break;
 
-            ConsoleInterface.MakeOperationsOnText(numberOfOperation, pathToFile);
+            ConsoleInterface.MakeOperationsOnText(numberOfOperation, textFromFile);
 
         }
 

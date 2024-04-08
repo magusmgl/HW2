@@ -11,9 +11,8 @@ namespace HomeWork2
 {
     public static class TextHandler
     {
-        public static void InsertNumeralsInText(string path)
+        public static void InsertNumeralsInText(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             string[] chunks = textFromFile.Split(" ", StringSplitOptions.None);
             for (int i = 0; i < chunks.Length; i++)
             {
@@ -23,12 +22,11 @@ namespace HomeWork2
                 }
             }
 
-            Console.WriteLine($"Текст после замены цифр на числитетельные:\n{string.Join(" ", chunks)}");
+            Console.WriteLine($"\nТекст после замены цифр на числитетельные:\n{string.Join(" ", chunks)}");
         }
 
-        public static void GetWordsWithMaxDigits(string path)
+        public static void GetWordsWithMaxDigits(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             List<string> words = ReadFileHelpers.SpiltTextIntoWords(textFromFile);
             var allWordsWithMaxDigits = new List<string>();
             var maxDigitsInWords = words.Max(_ => CountDigitsInWord(_));
@@ -42,59 +40,54 @@ namespace HomeWork2
             }
 
             Console.WriteLine(
-                $"Слова содержащие максимальное количество цифр: {string.Join(", ", allWordsWithMaxDigits)}.");
+                $"\nСлова содержащие максимальное количество цифр: {string.Join(", ", allWordsWithMaxDigits)}.");
         }
 
-        public static void GetLongestWordAndItsNumOccurrences(string path)
+        public static void GetLongestWordAndItsNumOccurrences(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             List<string> words = ReadFileHelpers.SpiltTextIntoWords(textFromFile);
             var lengthOfLongestWord = words.Max(word => word.Length);
             foreach (var word in words.Where(word => word.Length == lengthOfLongestWord))
             {
                 Console.WriteLine(
-                                    $"Самое длинное слово - {word}, оно содержит {word.Length} букв{GetEndsOfWord(word.Length)}.");
+                                    $"\nСамое длинное слово - {word}, оно содержит {word.Length} букв{GetEndsOfWord(word.Length)}.");
             }
         }
 
-        public static void GetWordsStartsAnsEndWithTheSameLetter(string path)
+        public static void GetWordsStartsAnsEndWithTheSameLetter(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             var words = ReadFileHelpers.SpiltTextIntoWords(textFromFile);
-            Console.WriteLine("Cлова, начинающиеся и заканчивающиеся на одну и ту же букву: ");
+            Console.WriteLine("\nCлова, начинающиеся и заканчивающиеся на одну и ту же букву: ");
             foreach (var word in words.Where(x => x.Length > 1 && x[0] == x[^1]).Distinct())
             {
                 Console.Write($"{word.ToLower()}, ");
             }
         }
 
-        public static void GetSentencesWithExclamationPoint(string path)
+        public static void GetSentencesWithExclamationPoint(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             var sentences = ReadFileHelpers.GetSentencesFromText(textFromFile);
-            Console.WriteLine("Восклицательные предложения в тексте: ");
+            Console.WriteLine("\nВосклицательные предложения в тексте: ");
             foreach (var sentence in sentences.Where(sentence => sentence.EndsWith('!')))
             {
                 Console.WriteLine(sentence);
             }
         }
 
-        public static void GetSentencesWithQuestionMark(string path)
+        public static void GetSentencesWithQuestionMark(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             var sentences = ReadFileHelpers.GetSentencesFromText(textFromFile);
-            Console.WriteLine("Вопросительные предложения в тексте: ");
+            Console.WriteLine("\nВопросительные предложения в тексте: ");
             foreach (var sentence in sentences.Where(sentence => sentence.EndsWith('?')))
             {
                 Console.WriteLine(sentence);
             }
         }
 
-        public static void GetSentencesWithoutWashedDown(string path)
+        public static void GetSentencesWithoutWashedDown(string textFromFile)
         {
-            var textFromFile = ReadFileHelpers.ReadTextInFile(path);
             var sentences = ReadFileHelpers.GetSentencesFromText(textFromFile);
-            Console.WriteLine("Все предложения, не содержащие запятых: ");
+            Console.WriteLine("\nВсе предложения, не содержащие запятых: ");
             foreach (var sentence in sentences.Where(sentence => !sentence.Contains(',')))
             {
                 Console.WriteLine(sentence);
@@ -103,7 +96,7 @@ namespace HomeWork2
 
         private static int CountDigitsInWord(string word)
         {
-            return word.Where(c => char.IsDigit(c)).Count();
+            return word.Where(_ => char.IsDigit(_)).Count();
         }
 
         private static string GetEndsOfWord(int lengthWord)
