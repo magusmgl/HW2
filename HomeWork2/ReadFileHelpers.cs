@@ -120,20 +120,6 @@ internal static class ReadFileHelpers
             }
         }
     }
-
-    public static void GetWordsStartAndEndsWithOneLetter(string textFromFile)
-    {
-        List<string> result = new List<string>();
-        List<string> words = SpiltTextIntoWords(textFromFile);
-        foreach (string word in words)
-        {
-            if (word[0] == word[word.Length - 1])
-            {
-                result.Add(word);
-            }
-        }
-        Console.WriteLine($"Слова, начинающиеся и заканчивающиеся на одну и ту же букву: {String.Join(", ", result)}");
-    }
     private static int CountDigitsInWord(string word)
     {
         return word.Where(c => char.IsDigit(c)).Count();
